@@ -8,7 +8,8 @@ public class PlayerAction : MonoBehaviour
     public Animation anim;
     public Camera eye, mainCamera;
     public GameObject Head;
-
+    public GameObject Person;
+    private Vector3 personInitPos = new Vector3(0, 0, 0);
     private bool isWalk = false;
 
     // Start is called before the first frame update
@@ -16,6 +17,8 @@ public class PlayerAction : MonoBehaviour
     {
         mainCamera.enabled = true;
         eye.enabled = false;
+        Person = GameObject.Find("Person");
+        personInitPos = Person.transform.position;
         //Head.GetComponent<Renderer>().enabled = true;
     }
 
@@ -79,7 +82,7 @@ public class PlayerAction : MonoBehaviour
     {
         if (collision.gameObject.tag == "Destroy")
         {
-            transform.position = new Vector3(0, 0, 0);
+            transform.position = personInitPos;
         }
     }
 }
