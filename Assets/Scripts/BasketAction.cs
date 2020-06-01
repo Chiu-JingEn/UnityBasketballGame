@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class BasketAction : MonoBehaviour
@@ -36,6 +37,15 @@ public class BasketAction : MonoBehaviour
             upCollider = false;
             downCollider = false;
             Debug.Log(score);
+            //增加跳場景
+            if (score >= 500)
+            {
+                if(Application.loadedLevel+1< Application.levelCount)
+                {
+                    Application.LoadLevel(Application.loadedLevel + 1);
+                    score = 0;
+                }
+            }
         }
     }
 }
