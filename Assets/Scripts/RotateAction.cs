@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class RotateAction : MonoBehaviour
 {
     public float RotateSpeed, ShootSpeed;
@@ -10,11 +11,23 @@ public class RotateAction : MonoBehaviour
     public Camera MainCamera;
     private Stack<GameObject> balls = new Stack<GameObject>();
     private GameObject curr_ball;
+    public int timer_power=0;
+    public float time_power_f=0f;
+    public int power_positive_controler=1;
+    private Image barImageNumber;
+    private GameObject powerBar;
+    private void Awake()
+    {
 
+        barImageNumber = GameObject.Find("bar").GetComponent<Image>();
+        powerBar = GameObject.Find("PowerBar");
+        powerBar.SetActive(false);
+    }
     // Start is called before the first frame update
     void Start()
     {
         balls.Push(NewBall());
+        
     }
 
     // Update is called once per frame
@@ -27,9 +40,35 @@ public class RotateAction : MonoBehaviour
 
     void KeyActions()
     {
-        
-        if(Input.GetMouseButtonDown(0))
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    ShootBall(ref curr_ball);
+        //    balls.Push(NewBall());
+        //}
+        //按住蓄力
+        if (Input.GetKey(KeyCode.Mouse0))
         {
+            powerBar.SetActive(true);
+            barImageNumber.fillAmount = time_power_f;
+            time_power_f += Time.deltaTime* power_positive_controler;
+            if(time_power_f>=1)
+            {
+                time_power_f = 1.0f;
+                power_positive_controler = -1;
+            }
+            else if(time_power_f<=0)
+            {
+                time_power_f = 0.0f;
+                power_positive_controler = 1;
+            }
+            
+        }
+        //放開射出
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            powerBar.SetActive(false);
+            timer_power = (int)time_power_f;
+            time_power_f = 0.0f;
             ShootBall(ref curr_ball);
             balls.Push(NewBall());
         }
@@ -83,7 +122,7 @@ public class RotateAction : MonoBehaviour
         Rigidbody rigidbody = ball.GetComponent<Rigidbody>();
         Collider collider = ball.GetComponent<Collider>();
 
-        rigidbody.velocity = RotateObject.transform.forward * ShootSpeed;
+        rigidbody.velocity = RotateObject.transform.forward * ShootSpeed* barImageNumber.fillAmount;
         collider.isTrigger = false;
         rigidbody.useGravity = true;
         rigidbody.isKinematic = false;
