@@ -85,4 +85,11 @@ public class PlayerAction : MonoBehaviour
             transform.position = personInitPos;
         }
     }
+    void OnParticleCollision(GameObject other)
+    {
+        if (other.tag == "Destroy")
+        {
+            transform.position = personInitPos;
+        }
+    }
 }

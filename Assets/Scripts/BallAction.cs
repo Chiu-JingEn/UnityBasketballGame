@@ -7,7 +7,6 @@ public class BallAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -18,7 +17,15 @@ public class BallAction : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        //Debug.Log("Triger: " + collision.gameObject.name);
         if (collision.gameObject.tag == "Destroy")
+        {
+            Destroy(gameObject);
+        }
+    }
+    void OnParticleCollision(GameObject other)
+    {
+        if (other.tag == "Destroy")
         {
             Destroy(gameObject);
         }
