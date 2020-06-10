@@ -8,6 +8,7 @@ public class BasketAction : MonoBehaviour
 {
     public int score_per_ball = 100;
     public static int score = 0;
+    public static bool getScore = false;
     static bool upCollider = false;
     static bool downCollider = false;
     static bool isUpFirst = false;
@@ -34,6 +35,7 @@ public class BasketAction : MonoBehaviour
         if (other.tag == "Ball" && tag == "DownCollider" && upCollider)
         {
             score += score_per_ball;
+            getScore = true;
             isUpFirst = false;
             upCollider = false;
             downCollider = false;
