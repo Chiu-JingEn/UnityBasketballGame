@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerAction : MonoBehaviour
 {
     public float Speed = 0.5f;
@@ -20,6 +20,10 @@ public class PlayerAction : MonoBehaviour
         Person = GameObject.Find("Person");
         personInitPos = Person.transform.position;
         //Head.GetComponent<Renderer>().enabled = true;
+        if (SceneManager.GetActiveScene().buildIndex==0)
+        {
+            clocker.Instance_.resetTime();
+        }
     }
 
     // Update is called once per frame
