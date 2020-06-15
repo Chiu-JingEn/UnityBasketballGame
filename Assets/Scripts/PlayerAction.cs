@@ -11,7 +11,7 @@ public class PlayerAction : MonoBehaviour
     public GameObject Person;
     private Vector3 personInitPos = new Vector3(0, 0, 0);
     private bool isWalk = false;
-
+    public GameObject _GameOver;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,9 +20,13 @@ public class PlayerAction : MonoBehaviour
         Person = GameObject.Find("Person");
         personInitPos = Person.transform.position;
         //Head.GetComponent<Renderer>().enabled = true;
-        if (SceneManager.GetActiveScene().buildIndex==0)
+        if (SceneManager.GetActiveScene().buildIndex==1)
         {
             clocker.Instance_.resetTime();
+        }
+        if (_GameOver!=null)
+        {
+            _GameOver.SetActive(false);
         }
     }
 
@@ -94,6 +98,11 @@ public class PlayerAction : MonoBehaviour
         if (other.tag == "Destroy")
         {
             transform.position = personInitPos;
+            
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
+            clocker.Instance_.punishDuationTime();
+            _GameOver.SetActive(true);
         }
     }
 }
