@@ -17,7 +17,9 @@ public class timebar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeText.text = clocker.Instance_.getTime().ToString()+"s";
+        clocker.Instance_.updateDuationTime();
+        timeText.text = ((int)clocker.Instance_.getDuationTime()).ToString() + "s";
+        //timeText.text = clocker.Instance_.getTime().ToString()+"s";
         //Debug.Log(mytime.getTime().ToString());
     }
 }
