@@ -18,8 +18,9 @@ public class HomeAction : MonoBehaviour
 
     public void ClickStartButton()
     {
-        Debug.Log("Start to scene 0");
-        SceneManager.LoadScene(0);
+        //Debug.Log("Start to scene 0");
+        //SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     // Update is called once per frame
